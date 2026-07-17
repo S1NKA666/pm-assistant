@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 250px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 12px;
+      margin: 0;
+      background: #0f172a;
+      color: #f8fafc;
+    }
+    h3 {
+      margin-top: 0;
+      color: #6366f1;
+      font-size: 16px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 8px;
+    }
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .status-val {
+      font-weight: bold;
+    }
+    .connected {
+      color: #10b981;
+    }
+    .disconnected {
+      color: #ef4444;
+    }
+    .btn {
+      width: 100%;
+      background: #334155;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body>
+  <h3>PM Assistant Collector</h3>
+  <div class="status-item">
+    <span>Backend Status:</span>
+    <span id="backend-status" class="status-val disconnected">Checking...</span>
+  </div>
+  <div class="status-item">
+    <span>Jira Connection:</span>
+    <span id="jira-status" class="status-val disconnected">Checking...</span>
+  </div>
+  
+  <button id="check-btn" class="btn">Check Connections</button>
+  <button id="open-btn" class="btn" style="background: #4f46e5;">Open Dashboard</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

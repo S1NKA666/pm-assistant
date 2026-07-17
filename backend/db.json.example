@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "jiraUrl": "http://your-jira-domain.com",
+    "jiraEmail": "your-jira-email@domain.com",
+    "jiraToken": "your-jira-api-token-or-pat",
+    "jiraProjectKey": "PROJ",
+    "jiraBoardId": "1",
+    "storyPointsFieldId": "customfield_10026",
+    "geminiApiKey": "AIzaSy...",
+    "geminiModel": "gemini-1.5-flash",
+    "gitlabUrl": "https://gitlab.com",
+    "gitlabToken": "glpat-..."
+  },
+  "spaces": [],
+  "activeSpaceId": "",
+  "inbox": [],
+  "tasks": []
+}

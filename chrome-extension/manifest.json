@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "PM Assistant Local Collector",
+  "version": "1.0",
+  "description": "Collects Telegram Web and WhatsApp Web chats locally for JIRA PM Assistant",
+  "permissions": [
+    "activeTab",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "http://localhost:5000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://web.telegram.org/*",
+        "*://web.whatsapp.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
