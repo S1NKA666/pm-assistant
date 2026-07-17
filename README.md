@@ -1,75 +1,156 @@
-# PM Flow Copilot (PM Assistant)
+Markdown
+# 🚀 PM Assistant / AI Workspace
 
-Интеллектуальный ассистент проектного менеджера с интеграцией JIRA, GitLab и искусственного интеллекта Gemini. Помогает автоматизировать рутинные PM-задачи: планировать спринты, парсить логи чатов и ТЗ, отслеживать здоровье спринта (Jira vs GitLab) и синхронизировать статусы задач в один клик.
-
----
-
-## 🚀 Основные возможности
-
-1. **ИИ-Планировщик Спринтов (Agile Sprint Planner)**:
-   * Автоматически собирает невыполненные задачи текущего спринта (для переноса).
-   * Скачивает ТЗ и таблицы из Google Диска (интеграция по ссылке).
-   * Находит новые требования в документах и рекомендует задачи из бэклога JIRA.
-2. **Глубокий PM-анализ и декомпозиция**:
-   * Разделяет бизнес-требования на технические подзадачи `[FRONT]`, `[BACK]` и `[FULL]`.
-   * На основе дерева файлов проекта в GitLab предлагает задействованные файлы прямо в описании задачи.
-   * Оценивает задачи в Story Points по шкале Фибоначчи и формирует чек-листы приёмки (Definition of Done).
-3. **Пакетное управление (Bulk Actions)**:
-   * Массовое заведение и удаление черновиков задач.
-   * Массовый анализ ИИ или удаление входящих логов/обсуждений чата.
-4. **Интерактивный ИИ-Анализатор здоровья спринта (Sprint Health Analyzer)**:
-   * Сопоставляет активность разработчиков в GitLab (коммиты, Merge Requests) со статусами JIRA.
-   * Находит расхождения (коммиты сделаны, но задача всё ещё в статусе "To Do").
-   * **One-Click Sync**: Кнопка автоматического перевода статуса в JIRA прямо из отчета здоровья в один клик.
+🇬🇧 [English](#english-version) | 🇷🇺 [Русский](#русская-версия)
 
 ---
 
-## 🛠️ Установка и запуск
+<a name="english-version"></a>
+## 🇬🇧 English Version
 
-### Системные требования:
-* **Node.js** v18 или выше
-* **NPM** v9 или выше
-* Браузер Google Chrome / Яндекс.Браузер (для Chrome Extension)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+[![Extension](https://img.shields.io/badge/Chrome_Extension-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://developer.chrome.com/)
 
-### Шаг 1. Клонирование и подготовка
-1. Склонируйте репозиторий на ваш компьютер.
-2. Перейдите в папку `backend` и скопируйте файл шаблона настроек базы данных:
-   ```bash
-   copy db.json.example db.json
-   ```
-   *(При запуске бэкенд также автоматически создаст пустую базу данных, если файл отсутствует).*
+A comprehensive personal assistant for task and context management. This project unifies scattered data sources (Jira, GitLab, web content) into a single Inbox, automates task draft generation using AI, and allows for quick context capturing via a dedicated browser extension.
 
-### Шаг 2. Установка зависимостей
-Установите библиотеки для бэкенда и фронтенда (запустите команды в соответствующих папках):
+### ✨ Key Features
 
-```bash
-# Установка библиотек бэкенда
+- 📥 **Unified Inbox:** Aggregates incoming tasks, notes, and web links in one place.
+- 🤖 **AI Assistant (`ai.js`):** Automatically processes incoming data, generates, and summarizes Task Drafts.
+- 🔄 **Tracker Integrations:** Two-way communication with **Jira** and **GitLab** — manage tickets and Merge Requests directly from the dashboard.
+- 🧩 **Spaces Management:** Logical separation of context, environments, and projects.
+- 🌐 **Chrome Extension:** Quickly save highlighted text, links, or sudden ideas directly from your browser to your Inbox.
+
+### 🛠 Tech Stack
+
+- **Frontend:** React, Vite, custom UI components.
+- **Backend:** Node.js, Express, local database (JSON/SQLite).
+- **Integrations:** Jira API, GitLab API, AI Provider API.
+- **Extension:** Manifest V3, Background Service Workers.
+
+### 📁 Project Structure
+
+```text
+├── backend/                # API server & business logic
+│   ├── services/           # Integrations (ai.js, jira.js, gitlab.js, retry.js)
+│   ├── database.js         # Data layer
+│   ├── server.js           # Express entry point
+│   └── db.json.example     # Database schema example
+├── frontend/               # SPA client (React + Vite)
+│   ├── src/components/     # UI Components (Dashboard, Inbox, JiraManager, etc.)
+│   └── src/services/       # API client for backend communication
+└── chrome-extension/       # Browser plugin
+    ├── background.js       # Extension background processes
+    ├── content.js          # Scripts for page interaction
+    └── popup.html/js       # Extension UI (web clipper)
+🚀 Quick Start
+1. Start the Backend
+Navigate to the backend directory, install dependencies, and set up the environment:
+
+Bash
 cd backend
 npm install
+# Copy the database/config example
+cp db.json.example db.json
+# Start the server
+npm start
+2. Start the Frontend
+In a new terminal window, start the client:
 
-# Установка библиотек фронтенда
-cd ../frontend
+Bash
+cd frontend
 npm install
-```
+npm run dev
+3. Install the Chrome Extension
+Open Google Chrome and navigate to chrome://extensions/.
 
-### Шаг 3. Быстрый запуск (Windows)
-В корневой директории проекта запустите файл:
-```bash
-start.bat
-```
-Скрипт автоматически запустит бэкенд на порту `5000` и Vite dev-сервер фронтенда на порту `5173`.
+Enable Developer mode in the top right corner.
 
-### Шаг 4. Установка Chrome Extension
-1. Откройте браузер Chrome и перейдите по адресу `chrome://extensions/`.
-2. Включите **Режим разработчика** (Developer mode) в правом верхнем углу.
-3. Нажмите кнопку **Загрузить распакованное расширение** (Load unpacked) в левом верхнем углу.
-4. Выберите папку `chrome-extension` из корневой папки этого проекта.
+Click Load unpacked and select the chrome-extension folder from this repository.
 
----
+⚙️ Configuration
+For integrations to work correctly, you need to provide access tokens in your backend configuration:
 
-## ⚙️ Настройка интеграций (в веб-интерфейсе)
+JIRA_API_TOKEN and your workspace URL.
 
-После запуска перейдите на страницу http://localhost:5173 и зайдите во вкладку **«Настройки»** в левом меню:
-1. **JIRA**: Укажите URL сервера JIRA, Email и API-токен (или Personal Access Token для Jira Server), ключ проекта и ID доски. Укажите ID поля Story Points (обычно `customfield_XXXXX`).
-2. **Gemini**: Укажите ваш API-ключ Gemini (поддерживаются бесплатные ключи API) и выберите модель (например, `gemini-1.5-flash` или `gemini-1.5-pro`).
-3. **GitLab**: Введите URL вашего GitLab-инстанса (по умолчанию https://gitlab.com) и Персональный токен доступа (Personal Access Token с правами `api` и `read_repository`).
+GITLAB_PERSONAL_TOKEN.
+
+API keys for the AI module.
+
+👨‍💻 Author
+Ivan Gridasov
+
+Project Lead / Technical Lead
+
+🇷🇺 Русская версия
+Комплексный персональный ассистент для управления задачами. Проект объединяет разрозненные источники данных (Jira, GitLab, веб-контент) в единый Inbox, автоматизирует создание черновиков задач с помощью AI и позволяет быстро сохранять контекст через браузерное расширение.
+
+✨ Ключевые возможности
+📥 Единый Inbox: Агрегация входящих задач, заметок и ссылок в одном месте.
+
+🤖 AI Ассистент (ai.js): Автоматическая обработка входящих данных, генерация и саммаризация черновиков задач (Task Drafts).
+
+🔄 Интеграция с трекерами: Двусторонняя связь с Jira и GitLab — управление тикетами и MR напрямую из дашборда.
+
+🧩 Управление пространствами (Spaces): Логическое разделение контекста и проектов.
+
+🌐 Chrome Extension: Быстрое сохранение выделенного текста, ссылок или идей прямо из браузера в свой Inbox.
+
+🛠 Технологический стек
+Фронтенд: React, Vite, кастомные UI-компоненты.
+
+Бэкенд: Node.js, Express, локальная БД (JSON/SQLite).
+
+Интеграции: Jira API, GitLab API, AI Provider API.
+
+Расширение: Manifest V3, Background Service Workers.
+
+📁 Структура проекта
+Plaintext
+├── backend/                # API сервер и бизнес-логика
+│   ├── services/           # Интеграции (ai.js, jira.js, gitlab.js, retry.js)
+│   ├── database.js         # Слой работы с данными
+│   ├── server.js           # Точка входа Express
+│   └── db.json.example     # Пример схемы БД
+├── frontend/               # SPA клиент (React + Vite)
+│   ├── src/components/     # Компоненты (Dashboard, Inbox, JiraManager и др.)
+│   └── src/services/       # API клиент для связи с бэкендом
+└── chrome-extension/       # Плагин для браузера
+    ├── background.js       # Фоновые процессы расширения
+    ├── content.js          # Скрипты для взаимодействия со страницами
+    └── popup.html/js       # Интерфейс расширения (клиппер)
+🚀 Быстрый старт
+1. Запуск Backend
+Перейдите в директорию бэкенда, установите зависимости и настройте окружение:
+
+Bash
+cd backend
+npm install
+# Скопируйте пример базы данных/конфига
+cp db.json.example db.json
+# Запустите сервер
+npm start
+2. Запуск Frontend
+В новом окне терминала запустите клиентскую часть:
+
+Bash
+cd frontend
+npm install
+npm run dev
+3. Установка Chrome Extension
+Откройте Google Chrome и перейдите по адресу chrome://extensions/.
+
+Включите Режим разработчика (Developer mode) в правом верхнем углу.
+
+Нажмите Загрузить распакованное расширение (Load unpacked) и выберите папку chrome-extension из этого репозитория.
+
+⚙️ Конфигурация
+Для корректной работы интеграций потребуется указать токены доступа. Добавьте в конфигурацию бэкенда:
+
+JIRA_API_TOKEN и URL вашего пространства.
+
+GITLAB_PERSONAL_TOKEN.
+
+Ключи для работы модуля AI.
